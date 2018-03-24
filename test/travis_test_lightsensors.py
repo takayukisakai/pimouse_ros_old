@@ -26,7 +26,7 @@ class LightSensorTest(unittest.TestCase):
 
 	def test_node_exist(self):
 		nodes = rosnode.get_node_names()
-		self.assertIn('_rosi?/lightsensors',nodes, "node does not exist")
+		self.assertIn('/lightsensors',nodes, "node does not exist")
 
 	def test_get_value(self):
 		rospy.set_param('lightsensors_freq', 10)   #センサの値取得の周期を10Hzに
@@ -38,10 +38,11 @@ class LightSensorTest(unittest.TestCase):
 		###コールバック関数が最低1回は呼ばれ、値が取得できているかを確認###
 		self.assertFalse(self.count == 0, "cannot subscribe the topic")
 		self.check_values(4321,123,0,-1)
+
 	def test_change_parameter(self):
 		rospy.set_param('lightsesors_freq', 1)     #センサの値取得の周期を1Hzに
 		time.sleep(2)                              #パラメータの反映を待つ
-		c_prev = delf.count                        #コールバック関数が呼ばれた回数を記録
+		c_prev = self.count                        #コールバック関数が呼ばれた回数を記録
 		time.sleep(3)
                 ###コールバック関数が3秒間で最低1回、最高でも4回しか呼ばれていないことを確認###
 		self.assertTrue(self.count < c_prev + 4, "freq does not change")
@@ -49,5 +50,5 @@ class LightSensorTest(unittest.TestCase):
 
 if __ name__ == '__main__':
 	time.sleep(3)
-	rospy.init_node('travis_test_lightsensors'
+	rospy.init_node('travis_test_lightsensors')
 	rostest.rosrun('pimouse_ros','travis_test_lightsensors', LightsensorTest)
