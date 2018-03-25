@@ -29,9 +29,9 @@ class LightsensorTest(unittest.TestCase):
 		self.assertIn('/lightsensors',nodes, "node does not exist")
 
 	def test_get_value(self):
-		rospy.set_param('lightsensors_freq', 10)   
-		time.sleep(2)                              
-		with open("/dev/rtlightsensor0","w") as f: 
+		rospy.set_param('lightsensors_freq', 10)
+		time.sleep(2)   
+		with open("/dev/rtlightsensor0","w") as f:
 			f.write("-1 0 123 4321\n")
 
 		time.sleep(3)
@@ -41,8 +41,8 @@ class LightsensorTest(unittest.TestCase):
 
 	def test_change_parameter(self):
 		rospy.set_param('lightsensors_freq', 1)
-		time.sleep(2)                             
-		c_prev = self.count                        
+		time.sleep(2)
+		c_prev = self.count
 		time.sleep(3)
 		self.assertTrue(self.count < c_prev + 4, "freq does not change")
 
