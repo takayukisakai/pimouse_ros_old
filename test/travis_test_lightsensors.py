@@ -40,7 +40,7 @@ class LightsensorTest(unittest.TestCase):
 		self.check_values(4321,123,0,-1)
 
 	def test_change_parameter(self):
-		rospy.set_param('lightsesors_freq', 1)     #センサの値取得の周期を1Hzに
+		rospy.set_param('lightsensors_freq', 1)     #センサの値取得の周期を1Hzに
 		time.sleep(2)                              #パラメータの反映を待つ
 		c_prev = self.count                        #コールバック関数が呼ばれた回数を記録
 		time.sleep(3)
