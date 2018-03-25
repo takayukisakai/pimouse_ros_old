@@ -29,12 +29,13 @@ class LightsensorTest(unittest.TestCase):
 		self.assertIn('/lightsensors',nodes, "node does not exist")
 
 	def test_get_value(self):
-		rospy.set_param('lightsensors_freq', 10)
-		time.sleep(2)   
-		with open("/dev/rtlightsensor0","w") as f:
+		rospy.set_param('lightsensors_freq', 10)                 #センサーの周期を10Hzに
+		time.sleep(2)                                            #パラメータの反映を待つ
+		with open("/dev/rtlightsensor0","w") as f:               #ダミーの値をファイルに
 			f.write("-1 0 123 4321\n")
 
 		time.sleep(3)
+                ###コールバック関数が最低1回は呼ばれ、値が取得できているかを確認###
 		self.assertFalse(self.count == 0, "cannot subscribe the topic")
 		self.check_values(4321,123,0,-1)
 
